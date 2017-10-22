@@ -3,7 +3,6 @@ use std::cmp::Ordering;
 
 fn main() {
     println!("Guess the number!");
-
     println!("Please input your guess.");
 
     loop {
@@ -11,14 +10,15 @@ fn main() {
         let secret_number = 12;
 
         // Read the input and mutate the newly created string
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
+        io::stdin().read_line(&mut guess).expect("Failed to read line");
 
         // Parse the string
         let guess: u32 = match guess.trim().parse() {
             Ok(result) => result,
-            Err(_) => continue,
+            Err(_) => {
+                println!("You didn't pass an integer");
+                continue
+            },
         };
 
         // Compare the guess to the secret number
@@ -28,7 +28,7 @@ fn main() {
             Ordering::Equal => {
                 println!("That's it! You guessed it!");
                 break;
-            },
+            }
         }
     }
 }
